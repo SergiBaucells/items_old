@@ -24,4 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
     #adminlte_routes
 });
 
-Route::get('/items', 'ItemController@index');
+// https://laravel.com/docs/5.5/routing
+Route::get('/items', 'ItemController@index'); // 1 Retrieve -> Llista completa -> Paginació
+Route::get('/items/{item}', 'ItemController@show'); // 2 Retrieve -> 1 recurs concret
+Route::get('/items_alt/{id}', 'ItemController@show1'); // 2 Retrieve -> 1 recurs concret

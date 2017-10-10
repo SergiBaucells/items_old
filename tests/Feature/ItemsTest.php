@@ -6,10 +6,15 @@ use App\Item;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ExampleTest extends TestCase
+class ItemsTest extends TestCase
 {
     use RefreshDatabase; // Començem el test amb la base de dades buida
 
+    /**
+     * @group todo
+     *
+     * @test
+     */
     public function testShowAllItems()
     {
         // 3 parts
@@ -17,18 +22,26 @@ class ExampleTest extends TestCase
         // 2 -> Executo el codi que vull provar
         // 3 -> Comprovo: assert
 
-        factory(Item::class,50)->create();
+        $items = factory(Item::class,50)->create();
 
         $response = $this->get('/items');
         $response->dump();
         $response->assertStatus(200);
+        $response->assertSuccessful();
+        $response->assertViewIs('list_items');
         // TODO Contar que hi ha 50 al resultat
+
+        foreach ($items as $item) {
+            $response->assertSeeText($item->name);
+            $response->assertSeeText($item->description);
+        }
+
     }
 
     /**
-    * @group todo
+    *
     */
-    public function testShowAnEvent()
+    public function testShowAnItem()
     {
         // Preparo
         $item = factory(Item::class)->create();
@@ -36,14 +49,18 @@ class ExampleTest extends TestCase
         $response = $this->get('/items/' , $item->id);
         //Comprovo
         $response->assertStatus(200);
-        $response->assertSee($item->name);
-        $response->assertSee($item->description);
+        $response->assertSuccessful();
+        $response->assertViewIs('show_item');
+        $response->assertViewHas('item');
+        $response->assertSeeText($item->name);
+        $response->assertSeeText($item->description);
+        $response->assertSeeText('Item');
     }
 
     /**
      * @group todo
      */
-    public function testNoShowAnEvent()
+    public function testNoShowAnItem()
     {
         //Executo
         $response = $this->get('/items/999999999999');

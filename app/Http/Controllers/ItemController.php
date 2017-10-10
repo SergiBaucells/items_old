@@ -45,10 +45,40 @@ class ItemController extends Controller
      *
      * @param  \App\Item  $item
      * @return \Illuminate\Http\Response
+     *
+     * Forma mes senzilla i directa de fer-ho
      */
     public function show(Item $item)
     {
-        return $item;
+        // dd ($item);
+        // return $item;
+        //dump($item->name);
+        //return view('show_item',['item' => $item]);
+        return view('show_item',compact('item'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Item  $item
+     * @return \Illuminate\Http\Response
+     *
+     * Forma secundaria de fer-ho
+     */
+    public function show1($id)
+    {
+        // https://laravel.com/docs/5.5/eloquent
+        //dump ($id);
+        //dump($item = Item::find($id));
+        //if ($item == null) abort(404);
+        //try{
+            //$item = Item::findOrFail($id);
+        //}catch(\Exception $e){
+            //abort(404);
+        //}
+        //$item = Item::findOrFail($id);
+        //dump($item->name);
+        //return $item;
     }
 
     /**
