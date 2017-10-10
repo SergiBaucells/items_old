@@ -19,13 +19,10 @@ class ItemsTest extends TestCase
     {
         // 3 parts
         // 1 -> Preparo el test
-        // 2 -> Executo el codi que vull provar
-        // 3 -> Comprovo: assert
-
         $items = factory(Item::class,50)->create();
-
+        // 2 -> Executo el codi que vull provar
         $response = $this->get('/items');
-        $response->dump();
+        // 3 -> Comprovo: assert
         $response->assertStatus(200);
         $response->assertSuccessful();
         $response->assertViewIs('list_items');

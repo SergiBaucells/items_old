@@ -16,7 +16,8 @@ class ItemController extends Controller
     {
         // CRUD -> Retrieve --> List
         // BREAD -> Browse Read Edit Add Delete
-        return Item::all();
+        // return Item::all();
+        return view('list_items',compact('items'));
     }
 
     /**
